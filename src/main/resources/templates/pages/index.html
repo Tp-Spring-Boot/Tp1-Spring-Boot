@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/css/MyStyle.css" th:href="@{/css/MyStyle.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+<meta charset="UTF-8">
+<title>Products</title>
+</head>
+<body >
+  <div class="container mt-5 py-5">
+	<div class="card shadow mb-4 py-5">
+      <div class="card-header py-3 mt-5">
+         <h6 class="text-primary text-center" >Products List Data Table
+         <span th:text="${count_products}"  class="mx-2 px-2"></span></h6>
+          <div class="row">
+          		<div class="col-lg-6">
+          		    <form th:action="@{/}" method="GET">
+          		         <input class="form-control mb-2" type="text" name="search" th:value="${search}" placeholder="SEARCH BY DESIGNATION" >
+          		         <button type="submit" class="btn btn-success">Search</button>
+          		    </form>
+          		</div>
+          		<div class="col-lg-6 text-center">
+          		  <form th:action="@{/}" method="GET">
+          		  <input type="hidden" id="choix" th:value="${size}">
+       	 			<label>Show</label>
+       	 	 		<select  class="custom-select custom-select-sm form-control-sm" name="per_page" id="record">
+                		 <option value="2">2</option>
+                 		 <option value="5">5</option>
+                 		 <option value="10">10</option>
+                		 <option value="100">100</option>
+       				 </select>
+       				 <button type="submit" class="btn btn-primary">Show</button>
+    			 </form>
+          	  </div>
+          </div>
+          <div class="text-center" th:if="${message_succes!=''}" >
+          		 <div class="alert alert-success " th:text=${message_succes}> 
+          		    
+          		 </div>		
+          </div>
+      </div>
+	<div class="card-body">
+	  <table class="table">	
+  <thead>
+      <tr>
+      <th scope="col">Reference </th>
+      <th scope="col">Designation</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Quantite</th>
+      <th scope="col">Opération</th>
+      <th>   <a th:href="@{/addProduct}"> <button class="btn btn-primary">Add Product</button></a></th>
+    </tr>
+  </thead>
+          <tbody th:if="${list_products.empty}">
+         		<tr>
+         			<td colspan="6" class="text-danger text-center">No data</td>
+         		</tr>
+         </tbody> 
+   		<tbody  th:if="${!list_products.empty}">
+   			<tr th:each="produit :${list_products}" >
+   			  <td th:text="${produit.reference}"></td>
+   			  <td th:text="${produit.designation}"></td>
+   			  <td th:text="${produit.prix}"></td>
+   			  <td th:text="${produit.quantite}"></td>
+   			  <!-- <td th:text="${produit.client.Nom}"></td> -->
+   			    <td>
+   			   		<button data-toggle="modal" th:data-target="@{#myModal{id}(id=${produit.reference})}" class="btn btn-danger">Delete</button>
+   			   		<a th:href="@{/updateView(id=${produit.reference})}" ><button class="btn btn-warning">Update</button></a> 
+   			   </td>  
+<div th:id="@{myModal{id}(id=${produit.reference})}" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirm Delete</h4>
+      </div>
+      <div class="modal-body">
+        <h2>Do you want delete <span th:text="${produit.designation}"></span></h2>
+      </div>
+      <div class="modal-footer">
+      	<a th:href="@{/delete_produit(id=${produit.reference},page=${page_current},search=${search},per_page=${size})}"><button data-toggle="modal" data-target="#myModal" class="btn btn-danger">Delete</button></a> 
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>      
+</tr>
+</tbody> 	
+  </table>
+ <nav aria-label="text-center">
+  <ul class="pagination text-center">
+    <li  th:each="p:${pages}" th:class="${p!=page_current} ? 'page-item active' : 'page-item'" aria-current="page">
+      <a class="page-link" th:href="@{/(page=${p},search=${search},per_page=${size})}" th:text="${p}"></a>
+    </li>
+  </ul>
+</nav>
+
+
+
+	</div>
+	</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	let x=document.getElementById('choix').value;
+	 let select=document.getElementById('record');
+	 for(let i=0;i<select.length;i++){
+		 if(select[i].value==x){ 
+			 select[i].setAttribute('selected','selected');
+		 }
+	 }
+	
+</script>
+<script th:src="@{/js/main.js}"></script> 
+
+
+
