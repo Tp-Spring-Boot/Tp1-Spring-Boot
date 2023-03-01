@@ -1,0 +1,30 @@
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding:0;
+}
+
+table{
+	 box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+	 margin-top:25px;
+}
+
+h1,h6{
+	font-weight:600;
+	font-weight: bold !important;
+	 text-shadow: 5px 5px 5px #403c32 !important;
+}
+
+h6{
+	color:blue !important;
+	 margin-top:50px !important;
+	 margin-bottom:50px  !important;
+	font-size:25px !important;
+}
+nav{
+	display: flex  !important;
+	justify-content: center  !important;
+}
+.alert{
+	margin-top:25px;
+}
