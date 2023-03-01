@@ -26,7 +26,4 @@ public class Produit implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="codeClient")
 	Client Client;
-	
-
-
 }
