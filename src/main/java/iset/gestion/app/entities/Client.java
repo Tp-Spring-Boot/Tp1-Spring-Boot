@@ -22,5 +22,5 @@ public class Client implements Serializable {
 		private String nom;
 		private String adresse;
 		@OneToMany(mappedBy = "Client")
-		Collection<Produit> produits;
+		private Collection<Produit> produits;
 }
