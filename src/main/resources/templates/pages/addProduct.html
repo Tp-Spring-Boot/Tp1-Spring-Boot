@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
 <head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../static/css/MyStyle.css" th:href="@{/css/MyStyle.css}"/>
 <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
 <meta charset="UTF-8">
@@ -11,49 +14,51 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
 
 <div class="container">
 <div class="container text-center py-3">
-        <button class="text-center btn btn-outline-dark d-block">
+        <button class="text-center btn btn-white home">
         	<a th:href="@{/}">
-        	 	<i class="fa-solid text-warning fa-house-user display-4">
+        	 	<i class="fa-solid  fa-house-user display-4">
               	</i>
             	</a>
          </button>
 </div>
-<div class="d-flex p-3 m-3 justify-content-center align-items-center">
-    <div class="col-xl-10 col-md-12 col-lg-12">
-        <div class="row text-center here p-3 shadow-lg rounded">
+        <div class="add">
                 <div class="container">
-                        <div class="text-center">
+                        <div class="text-center add_prod">
                            <h1 class="h4 fw-bolder mb-3 py-3">Add Product</h1>
                         </div>
                     <form class="py-4"  th:action="@{/Addproduit}" method="POST" th:object="${produit}">
                        <div class="row mb-4 ">
                           <div class="col-lg-6">
-                            <label>Designation</label>
+                            <label>Reference</label>
                             <input type="text" th:field="*{reference}" class="form-control">
+                               <span th:errors=${produit.reference} class="text-danger"> </span>
                           </div>
                           <div class="col-lg-6">
                             <label>Designation</label>
                             <input type="text" th:field="*{designation}" class="form-control ">
+                            <span th:errors=${produit.designation} class="text-danger"> </span>
                           </div>
                         </div>
                         <div class="row mb-4">
                           <div class="col-lg-6 form-group">
                             <label>prix</label>
                             <input type="number" th:field="*{prix}" class="form-control ">
+                              <span th:errors=${produit.prix} class="text-danger"> </span>
                           </div>
                           <div class="col-lg-6">
                             <label>Quantite</label>
                             <input type="text" th:field="*{quantite}" class="form-control" >
+                                <span th:errors=${produit.quantite} class="text-danger"> </span>
                           </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                           <div class="col-lg-6">
                             <label>Id Client</label>
                              <select  class="custom-select custom-select-sm form-control-sm" >
                 				 <option th:each="client :${list_client}" th:value="${client.idclient}" th:text="${client.idclient}"></option>
        						 </select>
                           </div>
-                        </div>
+                        </div> -->
                         <div class="text-center mt-4">
                                 <button type="submit" class="btn btn-success">Add</button>
                         </div>
@@ -63,8 +68,7 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
                 </div>     
         </div>
     </div>
-</div>
-</div>
+
 </body>
 </html>
 <script src="https://kit.fontawesome.com/c5bebe1cfa.js" crossorigin="anonymous"></script>

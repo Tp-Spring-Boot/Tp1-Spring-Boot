@@ -20,6 +20,7 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
           <div class="row">
           		<div class="col-lg-6">
           		    <form th:action="@{/}" method="GET">
+          		     	 <input type="hidden" name="per_page" th:value="${size}">
           		         <input class="form-control mb-2" type="text" name="search" th:value="${search}" placeholder="SEARCH BY DESIGNATION" >
           		         <button type="submit" class="btn btn-success">Search</button>
           		    </form>
@@ -28,7 +29,7 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
           		  <form th:action="@{/}" method="GET">
           		  <input type="hidden" id="choix" th:value="${size}">
        	 			<label>Show</label>
-       	 	 		<select  class="custom-select custom-select-sm form-control-sm" name="per_page" id="record">
+       	 	 		<select  class=" form-control-sm" name="per_page" id="record">
                 		 <option value="2">2</option>
                  		 <option value="5">5</option>
                  		 <option value="10">10</option>
@@ -40,7 +41,6 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
           </div>
           <div class="text-center" th:if="${message_succes!=''}" >
           		 <div class="alert alert-success " th:text=${message_succes}> 
-          		    
           		 </div>		
           </div>
       </div>
@@ -100,14 +100,13 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
   </ul>
 </nav>
 
-
-
 	</div>
 	</div>
 	</div>
 </body>
 </html>
 <script type="text/javascript">
+try{
 	let x=document.getElementById('choix').value;
 	 let select=document.getElementById('record');
 	 for(let i=0;i<select.length;i++){
@@ -115,7 +114,9 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
 			 select[i].setAttribute('selected','selected');
 		 }
 	 }
+}catch(e){
 	
+}
 </script>
 <script th:src="@{/js/main.js}"></script> 
 

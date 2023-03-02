@@ -10,8 +10,8 @@ table{
 }
 
 h1,h6{
-	font-weight:600;
-	font-weight: bold !important;
+	 font-weight:600;
+	 font-weight: bold !important;
 	 text-shadow: 5px 5px 5px #403c32 !important;
 }
 
@@ -25,6 +25,15 @@ nav{
 	display: flex  !important;
 	justify-content: center  !important;
 }
+.home{
+	margin-top: 15px;
+}
 .alert{
 	margin-top:25px;
+}
+.add_prod{
+	margin-bottom: 20px;
+}
+.add{
+	margin-top: 50px;
 }
