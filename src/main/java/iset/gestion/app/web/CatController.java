@@ -1,12 +1,17 @@
 package iset.gestion.app.web;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -82,15 +87,22 @@ public class CatController {
 	}
 	
 	@PostMapping(value="/Addproduit")
-	public String AddProduit(@ModelAttribute("produit") Produit p) {
+	public String AddProduit(@ModelAttribute("produit") @Valid Produit p,
+			BindingResult bindingResult) throws ParseException{
+			if (bindingResult.hasErrors()) {
+				 return "pages/addProduct";
+			}
 			produitRepository.save(p);
 			String message_succes="Add Product with succes";
 			return "redirect:/?message="+message_succes;
 	}
 	
 	@PostMapping(value="/UpdateProduct")
-	public String UpdateProduct(@ModelAttribute("produit") Produit p) {
-			produitRepository.save(p);
+	public String UpdateProduct(@ModelAttribute("produit") @Valid Produit p, BindingResult bindingResult) throws ParseException{
+		if (bindingResult.hasErrors()) {
+			return "pages/UpdateProduct";
+		}	
+		    produitRepository.save(p);
 			String message_succes="Update Product with succes";
 			return "redirect:/?message="+message_succes;
 	}
