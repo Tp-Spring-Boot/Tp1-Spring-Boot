@@ -21,20 +21,22 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Entity
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Produit implements Serializable {
 	@Id
 	@NotBlank(message = "reference is required")
 	@Size(min = 4, max = 10)
 	private String reference;
-    @NotBlank(message = "designation is required")
-	@Size(min = 4, max = 10)
+	@NotBlank(message = "designation is required")
+	@Size(min = 4, max = 10, message = "Designation required")
 	private String designation;
-   	@Min(1)
+	@Min(1)
 	private double prix;
 	@Min(1)
 	private int quantite;
 	@ManyToOne
-	@JoinColumn(name="codeClient")
+	@JoinColumn(name = "codeClient")
 	Client Client;
 }
