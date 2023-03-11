@@ -26,39 +26,46 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
                         <div class="text-center add_prod">
                            <h1 class="h4 fw-bolder mb-3 py-3">Add Product</h1>
                         </div>
-                    <form class="py-4"  th:action="@{/Addproduit}" method="POST" th:object="${produit}">
+                    <form class="py-4" action="#"  th:action="@{/Addproduit}" enctype="multipart/form-data" method="POST" th:object="${produit}">
                        <div class="row mb-4 ">
                           <div class="col-lg-6">
                             <label>Reference</label>
-                            <input type="text" th:field="*{reference}" class="form-control">
+                            <input type="text" th:field="*{reference}" name="reference"  class="form-control">
                                <span th:errors=${produit.reference} class="text-danger"> </span>
                           </div>
                           <div class="col-lg-6">
                             <label>Designation</label>
-                            <input type="text" th:field="*{designation}" class="form-control ">
+                            <input type="text" th:field="*{designation}" name="designation" class="form-control ">
                             <span th:errors=${produit.designation} class="text-danger"> </span>
                           </div>
+                         
                         </div>
                         <div class="row mb-4">
                           <div class="col-lg-6 form-group">
                             <label>prix</label>
-                            <input type="number" th:field="*{prix}" class="form-control ">
+                            <input type="number" th:field="*{prix}" name="prix" class="form-control ">
                               <span th:errors=${produit.prix} class="text-danger"> </span>
                           </div>
                           <div class="col-lg-6">
                             <label>Quantite</label>
-                            <input type="text" th:field="*{quantite}" class="form-control" >
+                            <input type="text" th:field="*{quantite}"  class="form-control" >
                                 <span th:errors=${produit.quantite} class="text-danger"> </span>
                           </div>
                         </div>
-                        <!-- <div class="row">
-                          <div class="col-lg-6">
+                		
+                          <div class="col-lg-6 mt-5 py-5" >
                             <label>Id Client</label>
-                             <select  class="custom-select custom-select-sm form-control-sm" >
-                				 <option th:each="client :${list_client}" th:value="${client.idclient}" th:text="${client.idclient}"></option>
+                             <select name="client_id"  class=" form-control" >
+                				 <option th:each="client :${list_client}" th:value="${client.idclient}" th:text="${client.nom}"></option>
        						 </select>
                           </div>
-                        </div> -->
+                      
+                    
+                         <div class="col-lg-6">
+                            <label>File</label>
+                            <input type="file" name="photo" class="form-control" >
+                             <span th:text="${error_image!=''} ? 'Image Required' : ''" class="text-danger"> </span>
+                          </div>
                         <div class="text-center mt-4">
                                 <button type="submit" class="btn btn-success">Add</button>
                         </div>

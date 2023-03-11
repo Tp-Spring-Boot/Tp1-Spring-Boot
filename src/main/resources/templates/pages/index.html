@@ -52,6 +52,8 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
       <th scope="col">Designation</th>
       <th scope="col">Prix</th>
       <th scope="col">Quantite</th>
+      <th scope="col">Fournisseur</th>
+       <th scope="col">Photo</th>
       <th scope="col">Opération</th>
       <th>   <a th:href="@{/addProduct}"> <button class="btn btn-primary">Add Product</button></a></th>
     </tr>
@@ -62,16 +64,20 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
          		</tr>
          </tbody> 
    		<tbody  th:if="${!list_products.empty}">
-   			<tr th:each="produit :${list_products}" >
+   			<tr th:each="produit :${list_products}">
    			  <td th:text="${produit.reference}"></td>
    			  <td th:text="${produit.designation}"></td>
    			  <td th:text="${produit.prix}"></td>
    			  <td th:text="${produit.quantite}"></td>
+   			   <td th:text="${produit.Client.nom}"></td>
+   			 <!--   <td>  <img th:src="@{'data:image/jpg;base64,'+${produit.image}}">  </td>-->
+   			 <!-- <img th:src="@{storage/La Famille.jpg}"> -->
+   			  <td>  <img th:src="@{'storage/'+${produit.photo_shema}}">  </td>
    			  <!-- <td th:text="${produit.client.Nom}"></td> -->
    			    <td>
    			   		<button data-toggle="modal" th:data-target="@{#myModal{id}(id=${produit.reference})}" class="btn btn-danger">Delete</button>
    			   		<a th:href="@{/updateView(id=${produit.reference})}" ><button class="btn btn-warning">Update</button></a> 
-   			   </td>  
+   			    </td>  
 <div th:id="@{myModal{id}(id=${produit.reference})}" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">

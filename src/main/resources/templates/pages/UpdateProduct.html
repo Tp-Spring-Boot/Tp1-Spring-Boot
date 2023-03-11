@@ -26,7 +26,7 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
                         <div class="text-center add_prod">
                            <h1 class="h4 fw-bolder mb-3 py-3">Update Product</h1>
                         </div>
-                    <form class="py-4"  th:action="@{/UpdateProduct}" method="POST" th:object="${produit}">
+                    <form class="py-4"  th:action="@{/UpdateProduct}" method="POST" enctype="multipart/form-data" th:object="${produit}">
                        <div class="row mb-4 ">
                           <div class="col-lg-6">
                             <label>Reference</label>
@@ -47,19 +47,30 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
                           </div>
                           <div class="col-lg-6">
                             <label>Quantite</label>
-                            <input type="text" th:field="*{quantite}" class="form-control" >
+                                <input type="text" th:field="*{quantite}" class="form-control" >
                                 <span th:errors=${produit.quantite} class="text-danger"> </span>
                           </div>
+                            <input type="hidden" th:field="*{photo_shema}" class="form-control" >
+                           <div class="col-lg-12 text-center">
+                               
+                            	 <img th:src="@{'storage/'+${produit.photo_shema}}">
+                             </div>
+                          
+                           <div class="col-lg-12 ">
+                            <label>Changer Photo</label>
+                            	<input type="file" name="photo" class="form-control" >
+                          </div>
                         </div>
-                        <!-- <div class="row">
-                          <div class="col-lg-6">
+                        
+                           <div class="col-lg-12 mt-5 py-5" >
                             <label>Id Client</label>
-                             <select  class="custom-select custom-select-sm form-control-sm" >
-                				 <option th:each="client :${list_client}" th:value="${client.idclient}" th:text="${client.idclient}"></option>
+                             <select name="client_id"  class=" form-control" >
+                				 <option th:each="client :${list_client}" th:value="${client.idclient}"
+                				    th:text="${client.nom}" th:selected="(${client.idclient}==${client_id})"></option>
        						 </select>
                           </div>
-                        </div> -->
-                        <div class="text-center mt-4">
+                      
+                        <div class="text-center" style="margin-top: 25px">
                                 <button type="submit" class="btn btn-warning">Update</button>
                         </div>
                     </form>
