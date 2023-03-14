@@ -20,6 +20,7 @@ import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.codehaus.groovy.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -61,20 +62,36 @@ public class CatController {
 	
 	
 	@GetMapping("/")
-	public String search_produit(Model model,
+	public String search_produit(
+			Model model,
 			@RequestParam(name="search",defaultValue = "") String mc,
 			@RequestParam(name="page",defaultValue="0") int page,
 			@RequestParam(name="per_page",defaultValue="2") int size,
+			@RequestParam(name="prix",defaultValue = "0" ) double prix,
+			@RequestParam(name="order",defaultValue = "") String orderByChamp,
 			@RequestParam(name="message",defaultValue = "") String message) {
 		
-		Page<Produit> Produits=produitRepository.findByDesignationContains(mc,PageRequest.of(page, size));
+		Page<Produit> Produits;
+		 Produits=produitRepository.findByDesignationContains(mc,PageRequest.of(page, size));
+		
+		 if( mc!="" && orderByChamp=="") {
+			 Produits=produitRepository.findByDesignationContains(mc,PageRequest.of(page, size));
+		 }
+		 else if( orderByChamp.equals("prix")) {
+			 Produits=produitRepository.OdrerByFields(orderByChamp, PageRequest.of(page, size));
+		 }
+		 if(prix>0) {
+			 Produits=produitRepository.findByPrixGreaterThan(prix,PageRequest.of(page, size));
+		 }
+		
+		double Max_Prix=produitRepository.max_produit();
+		double Min_Prix=produitRepository.min_produit();
 		int totale=Produits.getTotalPages();
 		int [] count_page=new int [totale];
 		for(int i=0;i<totale;i++) {
 			count_page[i]=i;
 		}
-		
-		
+
 		model.addAttribute("pages",count_page);
 		model.addAttribute("page_current", page);
 		model.addAttribute("search",mc);
@@ -82,6 +99,9 @@ public class CatController {
 		model.addAttribute("count_products", produitRepository.CountProducts());
 		model.addAttribute("list_products", Produits);
 		model.addAttribute("message_succes", message);
+		model.addAttribute("prix", prix);
+		model.addAttribute("max_prix", Max_Prix);
+		model.addAttribute("min_prix", Min_Prix);
 		return "pages/index";
 	}
 	
@@ -192,10 +212,10 @@ public class CatController {
 		return clientRepository.findAll();
 	}
 
-	@GetMapping(value="productByPrix")
+	/*@GetMapping(value="productByPrix")
 	public List<Produit> getAllProducts_prix(@RequestParam(name="prix") double prix){
 		return produitRepository.getproduct_prix(prix);
-	}
+	}*/
 	
 	@DeleteMapping(value="deleteClient")
 	public void deleteClient(@RequestParam(name="id")long id) {

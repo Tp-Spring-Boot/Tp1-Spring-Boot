@@ -18,15 +18,15 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
          <h6 class="text-primary text-center" >Products List Data Table
          <span th:text="${count_products}"  class="mx-2 px-2"></span></h6>
           <div class="row">
-          		<div class="col-lg-6">
+          		<div class="col-lg-4">
           		    <form th:action="@{/}" method="GET">
           		     	 <input type="hidden" name="per_page" th:value="${size}">
-          		         <input class="form-control mb-2" type="text" name="search" th:value="${search}" placeholder="SEARCH BY DESIGNATION" >
+          		         <input class="form-control mb-2" type="text" name="search" th:value="${search}" placeholder="SEARCH BY DESIGNATION">
           		         <button type="submit" class="btn btn-success">Search</button>
           		    </form>
           		</div>
-          		<div class="col-lg-6 text-center">
-          		  <form th:action="@{/}" method="GET">
+          		<div class="col-lg-4 text-center">
+          		 <form th:action="@{/}" method="GET">
           		  <input type="hidden" id="choix" th:value="${size}">
        	 			<label>Show</label>
        	 	 		<select  class=" form-control-sm" name="per_page" id="record">
@@ -37,7 +37,15 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
        				 </select>
        				 <button type="submit" class="btn btn-primary">Show</button>
     			 </form>
+    			 
           	  </div>
+          	  <div class="col-lg-4">
+          	   <form  th:action="@{/}" method="GET">
+          	   	     <input  type="hidden" name="per_page" th:value="${size}">
+       	 			 <input  type="number" name="prix" th:max="${max_prix}" th:min="${min_prix}" th:value="${prix}">
+       				 <button type="submit" class="btn btn-primary">Select Prix</button>
+    			 </form>
+    			 </div>
           </div>
           <div class="text-center" th:if="${message_succes!=''}" >
           		 <div class="alert alert-success " th:text=${message_succes}> 
@@ -48,12 +56,15 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
 	  <table class="table">	
   <thead>
       <tr>
-      <th scope="col">Reference </th>
-      <th scope="col">Designation</th>
-      <th scope="col">Prix</th>
-      <th scope="col">Quantite</th>
-      <th scope="col">Fournisseur</th>
-       <th scope="col">Photo</th>
+      <th scope="col">
+          	Reference <!--  <a th:href="@{/(orderByChamp='reference')}">Order</a></th>-->
+      <th scope="col">Designation<!--  <a th:href="@{/(orderByChamp='designation')}">Order</a>  --></th>
+      <th scope="col">
+           Prix <a th:href="@{/(order='prix',page=${p},search=${search},per_page=${size})}">*</a>
+       </th>
+      <th scope="col">Quantite <!--  <a th:href="@{/(orderByChamp=quantite)}">Order </a>  --></th>
+      <th scope="col">Fournisseur  </th>
+       <th scope="col">Photo </th>
       <th scope="col">Opération</th>
       <th>   <a th:href="@{/addProduct}"> <button class="btn btn-primary">Add Product</button></a></th>
     </tr>
