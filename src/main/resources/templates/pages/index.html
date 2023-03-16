@@ -6,6 +6,7 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+     <script src="https://kit.fontawesome.com/c5bebe1cfa.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="../static/css/MyStyle.css" th:href="@{/css/MyStyle.css}"/>
 <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
 <meta charset="UTF-8">
@@ -60,7 +61,9 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
           	Reference <!--  <a th:href="@{/(orderByChamp='reference')}">Order</a></th>-->
       <th scope="col">Designation<!--  <a th:href="@{/(orderByChamp='designation')}">Order</a>  --></th>
       <th scope="col">
-           Prix <a th:href="@{/(order='prix',page=${p},search=${search},per_page=${size})}">*</a>
+           Prix <a th:href="@{/(order='prix',page=${p},search=${search},per_page=${size})}">
+           		<i class="fa-solid fa-arrow-up-wide-short"></i>
+           </a>
        </th>
       <th scope="col">Quantite <!--  <a th:href="@{/(orderByChamp=quantite)}">Order </a>  --></th>
       <th scope="col">Fournisseur  </th>
@@ -71,7 +74,7 @@ xmlns:layout="http://ultraq.net.nz/thymeleaf/Layout">
   </thead>
           <tbody th:if="${list_products.empty}">
          		<tr>
-         			<td colspan="6" class="text-danger text-center">No data</td>
+         			<td colspan="8" style="background-color:red;color:#fff" class="text-danger text-center">No data</td>
          		</tr>
          </tbody> 
    		<tbody  th:if="${!list_products.empty}">

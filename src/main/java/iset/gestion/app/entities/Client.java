@@ -3,7 +3,9 @@ package iset.gestion.app.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,11 +18,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data  @AllArgsConstructor @NoArgsConstructor 
 public class Client implements Serializable {
+	    //private static final long serialVersionUID = 1L;
 		@GeneratedValue (strategy = GenerationType.AUTO)
 		@Id
-		private long idclient;
+		private Long idclient;
 		private String nom;
 		private String adresse;
-		@OneToMany(mappedBy = "Client")
+		@OneToMany
 		private Collection<Produit> produits;
 }

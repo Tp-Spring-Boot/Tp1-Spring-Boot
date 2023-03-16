@@ -22,8 +22,7 @@ import iset.gestion.app.entities.Client;
 import iset.gestion.app.entities.Produit;
 
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-@RestResource
-@EnableJpaRepositories
+
 public interface ClientRepository extends JpaRepository<Client,Long> {
 	@Query(value="SELECT * FROM client WHERE idclient=:id",nativeQuery=true)
 	List<Client> getClient(long id);

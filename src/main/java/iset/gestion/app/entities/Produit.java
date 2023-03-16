@@ -30,6 +30,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Produit implements Serializable {
+	//private static final long serialVersionUID = 1L;
 	@Id
 	@NotBlank(message = "reference is required")
 	@Size(min = 4, max = 10)
@@ -43,7 +44,7 @@ public class Produit implements Serializable {
 	private String photo_shema;
 	@Min(1)
 	private int quantite;
-	@ManyToOne
-	@JoinColumn(name = "codeClient")
-	Client Client;
+	  @ManyToOne
+	  @JoinColumn(name = "Code_Client")
+	  private Client client;
 }
